@@ -30,7 +30,7 @@ function runSolutions(sourceCount) {
       syncLogSources.push(new LogSource());
     }
     try {
-      require("./solution/sync-sorted-merge")(syncLogSources, new Printer());
+      // require("./solution/sync-sorted-merge")(syncLogSources, new Printer());
       resolve();
     } catch (e) {
       reject(e);
@@ -50,11 +50,12 @@ function runSolutions(sourceCount) {
        * This function will ensure that what you print is in fact in chronological order.
        * Call 'printer.done()' at the end to get a few stats on your solution!
        */
+      const batchSize = 10;
       const asyncLogSources = [];
       for (let i = 0; i < sourceCount; i++) {
         asyncLogSources.push(new LogSource());
       }
-      require("./solution/async-sorted-merge")(asyncLogSources, new Printer())
+      require("./solution/async-sorted-merge")(asyncLogSources, batchSize, new Printer())
         .then(resolve)
         .catch(reject);
     });
